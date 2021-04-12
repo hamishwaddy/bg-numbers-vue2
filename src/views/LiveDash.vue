@@ -1,27 +1,33 @@
 <template>
   <div class="live-dash">
     <EntryCard :entry="latestEntry"/>
+    <BgTrendChart :entryData="threeHourTrend" />
   </div>
 </template>
 
 <script>
-import EntryCard from '@/components/EntryCard.vue';
 import EntryService from '@/services/EntryService';
+import EntryCard from '@/components/EntryCard.vue';
+import BgTrendChart from '@/components/BgTrendChart.vue';
 
 export default {
   name: 'LiveDash',
   components: {
     EntryCard,
+    BgTrendChart,
   },
   data() {
     return {
       latestEntry: {},
+      threeHourTrend: [],
+      twelveHourTrend: [],
       setIntervalId: null,
     };
   },
   created() {
     this.getInitEntry();
     this.fetchLatestEntryEveryMinute();
+    this.fetchLastThreeHours();
   },
   methods: {
     getInitEntry() {
@@ -48,6 +54,16 @@ export default {
           });
       }, 60000);
     },
+    fetchLastThreeHours() {
+      EntryService.getLastThreeHours()
+        .then(({ data }) => {
+          data.map((entry) => {
+            console.log('entry: ', entry);
+            this.threeHourTrend.push(entry.sgv);
+            return true;
+          });
+        });
+    },
   },
   beforeUnmount() {
     clearInterval(this.setIntervalId);
@@ -57,8 +73,10 @@ export default {
 
 <style scoped>
 .live-dash {
+  align-items: center;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  /* justify-content: center; */
   margin-top: 2rem;
 }
 </style>

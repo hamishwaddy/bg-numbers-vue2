@@ -13,4 +13,12 @@ export default {
   async getLatestEntry() {
     return apiClient.get('/entries.json?count=1');
   },
+
+  async getLastThreeHours() {
+    return apiClient.get('/entries.json?count=36');
+  },
+
+  async getLastTwelveHours() {
+    return apiClient.get('/entries.json?count=144');
+  },
 };
