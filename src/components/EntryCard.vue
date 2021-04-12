@@ -48,8 +48,8 @@ export default {
   align-items: center;
   width: 250px;
   height: 250px;
-  background-color: aqua;
-  border: 5px solid grey;
+  background-color: transparent;
+  border: 8px solid grey;
   border-radius: 50%;
   /* cursor: pointer; */
   display: flex;

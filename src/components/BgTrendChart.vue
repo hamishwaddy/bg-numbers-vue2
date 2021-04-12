@@ -60,6 +60,6 @@ export default {
   flex-direction: column;
   align-items: center;
   margin-top: 30px;
-  width: 100%;
+  // width: 100%;
 }
 </style>
