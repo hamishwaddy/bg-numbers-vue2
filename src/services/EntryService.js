@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { format } from 'date-fns';
 
 const apiClient = axios.create({
   baseURL: 'https://orriebetes.herokuapp.com/api/v1',
@@ -14,8 +15,29 @@ export default {
     return apiClient.get('/entries.json?count=1');
   },
 
+  async bgChartData(numEntries) {
+    await apiClient.get(`/entries.json?count=${numEntries}`)
+      .then((data) => {
+        console.log('DATA: ', data);
+        return data;
+      });
+  },
+
   async getLastThreeHours() {
-    return apiClient.get('/entries.json?count=36');
+    const bgNumsLastThreeHours = [];
+    let reversed = [];
+    await apiClient.get('/entries.json?count=36')
+      .then(({ data }) => {
+        data.map((entry) => {
+          bgNumsLastThreeHours.push({
+            bgVal: Number(((entry.sgv) / 18)).toFixed(1),
+            time: format(entry.date, 'Pp'),
+          });
+          return bgNumsLastThreeHours;
+        });
+        reversed = bgNumsLastThreeHours.reverse();
+      });
+    return reversed;
   },
 
   async getLastTwelveHours() {

@@ -30,7 +30,6 @@ export default {
   },
   computed: {
     sgv() {
-      console.log(this.entry.sgv / 18);
       return this.entry.sgv;
     },
     date() {
@@ -51,12 +50,11 @@ export default {
   background-color: transparent;
   border: 8px solid grey;
   border-radius: 50%;
-  /* cursor: pointer; */
   display: flex;
   flex-direction: column;
   justify-content: center;
   padding: 20px;
-  margin-bottom: 20px;
+  margin-bottom: 4rem;
 }
 /* .entry-card:hover {
   transform: scale(1.01);

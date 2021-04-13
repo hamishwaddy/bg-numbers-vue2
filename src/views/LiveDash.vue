@@ -1,11 +1,12 @@
 <template>
   <div class="live-dash">
     <EntryCard :entry="latestEntry"/>
-    <BgTrendChart :entryData="threeHourTrend" />
+    <BgTrendChart />
   </div>
 </template>
 
 <script>
+// import { format } from 'date-fns';
 import EntryService from '@/services/EntryService';
 import EntryCard from '@/components/EntryCard.vue';
 import BgTrendChart from '@/components/BgTrendChart.vue';
@@ -19,15 +20,15 @@ export default {
   data() {
     return {
       latestEntry: {},
-      threeHourTrend: [],
-      twelveHourTrend: [],
       setIntervalId: null,
+      threeHourTrend: [],
     };
+  },
+  computed: {
   },
   created() {
     this.getInitEntry();
     this.fetchLatestEntryEveryMinute();
-    this.fetchLastThreeHours();
   },
   methods: {
     getInitEntry() {
@@ -54,16 +55,14 @@ export default {
           });
       }, 60000);
     },
-    fetchLastThreeHours() {
-      EntryService.getLastThreeHours()
-        .then(({ data }) => {
-          data.map((entry) => {
-            console.log('entry: ', entry);
-            this.threeHourTrend.push(entry.sgv);
-            return true;
-          });
-        });
-    },
+    // async fetchThreeHourTrend() {
+    //   await EntryService.getLastThreeHours()
+    //     .then((data) => {
+    //       console.log(data);
+    //       this.threeHourTrend = data;
+    //     });
+    //   return true;
+    // },
   },
   beforeUnmount() {
     clearInterval(this.setIntervalId);
@@ -71,12 +70,10 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .live-dash {
   align-items: center;
   display: flex;
   flex-direction: column;
-  /* justify-content: center; */
-  margin-top: 2rem;
 }
 </style>

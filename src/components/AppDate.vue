@@ -1,7 +1,6 @@
 <template>
 <div>
-  <span class="time-ago" :title="humanFriendlyDate">test</span>
-  {{timeAgo}}
+  <span class="time-ago" :title="humanFriendlyDate">{{ timeAgo }}</span>
 </div>
 </template>
 
@@ -15,25 +14,25 @@ export default {
       type: Number,
     },
   },
-  // data: () => ({
-  //   timeAgo: '',
-  // }),
-  // mounted() {
-  //   console.log(this.timeAgo);
-  // },
+  data: () => ({
+    timeAgo: 'ago',
+  }),
+  created() {
+    this.calculateTimeAgo();
+  },
   computed: {
-    timeAgo() {
-      return this.recalculateTimeAgo();
-    },
+    // timeAgo() {
+    //   return this.recalculateTimeAgo();
+    // },
     humanFriendlyDate() {
       return format(this.timestamp, 'dd-MMM-yyyy hh:mm:aaa');
     },
   },
   methods: {
-    recalculateTimeAgo() {
+    calculateTimeAgo() {
       setInterval(() => {
         console.log(formatDistanceToNow(this.timestamp, { addSuffix: true }));
-        formatDistanceToNow(this.timestamp, { addSuffix: true });
+        this.timeAgo = formatDistanceToNow(this.timestamp, { addSuffix: true });
       }, 60000);
     },
   },
@@ -42,7 +41,8 @@ export default {
 
 <style lang="scss" scoped>
 .time-ago {
-  border: 1px solid #000;
-  width: 200px;
+  font-size: 0.8em;
+  max-width: 200px;
+  color: grey;
 }
 </style>

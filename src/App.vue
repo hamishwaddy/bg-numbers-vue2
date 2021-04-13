@@ -32,3 +32,12 @@ export default {
   }),
 };
 </script>
+
+<style lang="scss" scoped>
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+}
+</style>
