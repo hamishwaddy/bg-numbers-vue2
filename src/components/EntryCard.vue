@@ -54,7 +54,7 @@ export default {
   flex-direction: column;
   justify-content: center;
   padding: 20px;
-  margin-bottom: 4rem;
+  margin: 0 auto 4rem;
 }
 /* .entry-card:hover {
   transform: scale(1.01);

@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { format } from 'date-fns';
 
 const apiClient = axios.create({
   baseURL: 'https://orriebetes.herokuapp.com/api/v1',
@@ -31,7 +30,7 @@ export default {
         data.map((entry) => {
           bgNumsLastThreeHours.push({
             bgVal: Number(((entry.sgv) / 18)).toFixed(1),
-            time: format(entry.date, 'Pp'),
+            time: entry.date,
           });
           return bgNumsLastThreeHours;
         });

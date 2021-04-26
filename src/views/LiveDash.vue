@@ -72,8 +72,8 @@ export default {
 
 <style lang="scss" scoped>
 .live-dash {
-  align-items: center;
-  display: flex;
-  flex-direction: column;
+  // align-items: center;
+  // display: flex;
+  // flex-direction: column;
 }
 </style>
