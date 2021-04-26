@@ -10,7 +10,7 @@
       text
       plain
       active-class
-      @click="threeHourData"
+      @click="loadChart"
     />
   </div>
     <div class="error-message" v-if="showError">
@@ -77,6 +77,9 @@ export default {
       } catch (e) {
         console.error(e);
       }
+    },
+    loadChart() {
+      console.log('load chart');
     },
   },
 };
