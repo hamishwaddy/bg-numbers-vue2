@@ -15,9 +15,10 @@ export default {
     },
   },
   data: () => ({
-    timeAgo: 'ago',
+    timeAgo: null,
   }),
   created() {
+    this.timeAgo = formatDistanceToNow(this.timestamp, { addSuffix: true });
     this.calculateTimeAgo();
   },
   computed: {

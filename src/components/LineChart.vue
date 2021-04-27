@@ -20,6 +20,7 @@ export default {
     return {
       minBgVal: [],
       options: {
+        animation: false,
         scales: {
           yAxes: [{
             ticks: {

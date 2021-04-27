@@ -9,7 +9,7 @@
       x-small
       text
       plain
-      active-class
+      active-class="active"
       @click="loadChart"
     />
   </div>
@@ -33,7 +33,6 @@
 <script>
 import EntryService from '@/services/EntryService';
 import LineChart from '@/components/LineChart.vue';
-// import { format } from 'date-fns';
 
 export default {
   name: 'BgTrendChart',
