@@ -1,12 +1,12 @@
 <template>
   <div class="live-dash">
+    <!-- <v-btn @click="getInitialThreeHourData">get 3</v-btn> -->
     <EntryCard :entry="latestEntry"/>
     <BgTrendChart />
   </div>
 </template>
 
 <script>
-// import { format } from 'date-fns';
 import EntryService from '@/services/EntryService';
 import EntryCard from '@/components/EntryCard.vue';
 import BgTrendChart from '@/components/BgTrendChart.vue';
@@ -21,10 +21,8 @@ export default {
     return {
       latestEntry: {},
       setIntervalId: null,
-      threeHourTrend: [],
+      initialData: [],
     };
-  },
-  computed: {
   },
   created() {
     this.getInitEntry();
@@ -55,16 +53,8 @@ export default {
           });
       }, 60000);
     },
-    // async fetchThreeHourTrend() {
-    //   await EntryService.getLastThreeHours()
-    //     .then((data) => {
-    //       console.log(data);
-    //       this.threeHourTrend = data;
-    //     });
-    //   return true;
-    // },
   },
-  beforeUnmount() {
+  beforeDestroy() {
     clearInterval(this.setIntervalId);
   },
 };

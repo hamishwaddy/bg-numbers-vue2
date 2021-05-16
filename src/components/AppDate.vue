@@ -19,7 +19,7 @@ export default {
   }),
   created() {
     this.timeAgo = formatDistanceToNow(this.timestamp, { addSuffix: true });
-    this.calculateTimeAgo();
+    // this.calculateTimeAgo();
   },
   computed: {
     // timeAgo() {
@@ -30,12 +30,12 @@ export default {
     },
   },
   methods: {
-    calculateTimeAgo() {
-      setInterval(() => {
-        console.log(formatDistanceToNow(this.timestamp, { addSuffix: true }));
-        this.timeAgo = formatDistanceToNow(this.timestamp, { addSuffix: true });
-      }, 60000);
-    },
+    // calculateTimeAgo() {
+    //   setInterval(() => {
+    //     console.log(formatDistanceToNow(this.timestamp, { addSuffix: true }));
+    //     this.timeAgo = formatDistanceToNow(this.timestamp, { addSuffix: true });
+    //   }, 60000);
+    // },
   },
 };
 </script>

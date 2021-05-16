@@ -37,6 +37,7 @@ export default {
             type: 'time',
             time: {
               unit: 'hour',
+              stepSize: 3,
             },
             gridLines: {
               display: false,

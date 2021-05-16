@@ -2,7 +2,7 @@
   <div class="bg-number-container">
     <div v-if="bgValInMmol() < 4" class="warning">
       <span>URGENT</span>
-      <fa icon="exclamation-triangle" type="fas" class="icon"></fa>
+      <font-awesome-icon icon="exclamation-triangle" type="fas" class="icon" />
     </div>
     <span
       class="bg-value"
@@ -65,6 +65,7 @@ export default {
 
 .icon {
   height: 1rem;
+  margin-left: 0.5rem;
   width: auto;
 }
 </style>
