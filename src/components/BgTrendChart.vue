@@ -1,32 +1,31 @@
 <template>
-<div>
-  <div class="button-group">
-    <v-btn
-      v-for="(button, i) in buttons"
-      :key="i"
-      v-text="button.text"
-      active-class="active"
-      :class="{active:button.isActive}"
-      text
-      tile
-      @click="loadChart(button.hours)"
-    />
-  </div>
+  <div class="chart-container">
     <div class="error-message" v-if="showError">
       {{ errorMessage }}
     </div>
-    <div class="chart-container">
-      <LineChart
-        class="line-chart"
-        v-if="loaded"
-        :chart-data="chartData.bgValues"
-        :chart-labels="chartData.labels"
-        :array-length="arrayLength"
-        :min-threshold="minThreshold"
-        :max-threshold="maxThreshold"
+    <div class="button-group">
+      <v-btn
+        v-for="(button, i) in buttons"
+        :key="i"
+        v-text="button.text"
+        active-class="active"
+        :class="{active:button.isActive}"
+        text
+        tile
+        small
+        @click="loadChart(button.hours)"
       />
     </div>
-    </div>
+    <LineChart
+      class="line-chart"
+      v-if="loaded"
+      :chart-data="chartData.bgValues"
+      :chart-labels="chartData.labels"
+      :array-length="arrayLength"
+      :min-threshold="minThreshold"
+      :max-threshold="maxThreshold"
+    />
+  </div>
 </template>
 
 <script>
