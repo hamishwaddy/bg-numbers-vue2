@@ -1,7 +1,7 @@
 <script>
 import { Line, mixins } from 'vue-chartjs';
 
-const reactiveProp = mixins;
+const { reactiveProp } = mixins;
 
 export default {
   extends: Line,
@@ -9,7 +9,7 @@ export default {
   props: {
     chartData: {
       type: Array || Object,
-      required: false,
+      required: true,
     },
     chartLabels: {
       type: Array,
@@ -18,9 +18,10 @@ export default {
   },
   data() {
     return {
-      minBgVal: [],
       options: {
-        animation: false,
+        animation: {
+          duration: 0,
+        },
         scales: {
           yAxes: [{
             ticks: {
@@ -53,8 +54,6 @@ export default {
     };
   },
   mounted() {
-    console.log('chartData: ', this.chartData);
-    console.log('chartData: ', this.chartLabels);
     this.renderChart({
       labels: this.chartLabels,
       datasets: [

@@ -44,14 +44,14 @@ export default {
       this.setIntervalId = setInterval(() => {
         EntryService.getLatestEntry()
           .then(({ data }) => {
-            console.log('getting data every minute: ', data[0]);
+            console.log('getting data every 10s: ', data[0]);
             // eslint-disable-next-line prefer-destructuring
             this.latestEntry = data[0];
           })
           .catch((error) => {
             console.log(error);
           });
-      }, 60000);
+      }, 10000);
     },
   },
   beforeDestroy() {

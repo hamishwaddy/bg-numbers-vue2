@@ -66,7 +66,7 @@ export default {
     },
   },
   mounted() {
-
+    this.get3EveryMinute();
   },
   beforeDestroy() {
     clearInterval(this.setIntervalId);
@@ -87,8 +87,17 @@ export default {
       this.chartData.bgValues = this.bgThreeHourData.map(
         (entry) => Number((entry.sgv / 18).toFixed(1)),
       );
+      console.log('get3values', this.chartData.bgValues);
       this.chartData.labels = this.bgThreeHourData.map((entry) => entry.date);
       this.loaded = true;
+    },
+    get3EveryMinute() {
+      this.get3();
+      clearInterval(this.setIntervalId);
+      this.setIntervalId = setInterval(() => {
+        this.get3();
+        console.log('3interval');
+      }, 10000);
     },
     async get6() {
       this.loaded = false;
@@ -97,8 +106,17 @@ export default {
       this.chartData.bgValues = this.bgSixHourData.map(
         (entry) => Number((entry.sgv / 18).toFixed(1)),
       );
+      console.log('get6values', this.chartData.bgValues);
       this.chartData.labels = this.bgSixHourData.map((entry) => entry.date);
       this.loaded = true;
+    },
+    get6EveryMinute() {
+      this.get6();
+      clearInterval(this.setIntervalId);
+      this.setIntervalId = setInterval(() => {
+        this.get6();
+        console.log('6interval');
+      }, 10000);
     },
     async get12() {
       this.loaded = false;
@@ -110,6 +128,14 @@ export default {
       this.chartData.labels = this.bgTwelveHourData.map((entry) => entry.date);
       this.loaded = true;
     },
+    get12EveryMinute() {
+      this.get12();
+      clearInterval(this.setIntervalId);
+      this.setIntervalId = setInterval(() => {
+        this.get12();
+        console.log('12interval');
+      }, 10000);
+    },
     async get24() {
       this.loaded = false;
       await this.$store.dispatch('fetchLastTwentyFourHourBgData');
@@ -120,53 +146,27 @@ export default {
       this.chartData.labels = this.bgTwentyFourHourData.map((entry) => entry.date);
       this.loaded = true;
     },
-    loadChart(value, isActive) {
-      console.log(isActive);
+    get24EveryMinute() {
+      this.get24();
+      clearInterval(this.setIntervalId);
+      this.setIntervalId = setInterval(() => {
+        this.get24();
+        console.log('24interval');
+      }, 10000);
+    },
+    loadChart(value) {
       switch (value) {
         case 6:
-          this.get6();
+          this.get6EveryMinute();
           break;
         case 12:
-          this.get12();
+          this.get12EveryMinute();
           break;
         case 24:
-          this.get24();
+          this.get24EveryMinute();
           break;
         default:
-          this.get3();
-      }
-    },
-    // async getInitialData() {
-    //   this.loaded = false;
-    //   const data = await this.$store.dispatch('fetchLastThreeHourBgData');
-    //   console.log('data: ', data);
-    //   // this.bgValues
-    //   // await this.$store.dispatch('fetchLastSixHourBgData');
-    // },
-    // async getInitialThreeHourData() {
-    //   console.log('getInitThreeHrData');
-    //   const result = await this.$store.dispatch('fetchLastThreeHourBgData');
-    //   console.log('res: ', result);
-    //   // this.bgValues =
-    // this.bgLastThreeHours.map((entry) => ((Number(entry.sgv / 18).toFixed(1)));
-    //   // this.labels = this.bgLastThreeHours.map((entry) => entry.date);
-    // },
-    fetchThreeHourDataEveryMinute() {
-      clearInterval(this.setIntervalId);
-      this.setIntervalId = (() => {
-        this.fetchDataLastThreeHours();
-      }, 60000);
-    },
-    async fetchDataLastThreeHours() {
-      try {
-        this.loaded = false;
-        this.$store.dispatch('fetchLastThreeHourBgData');
-        this.bgValues = this.bgLastThreeHours.map((entry) => Number((entry.sgv / 18).toFixed(1)));
-        this.labels = this.bgLastThreeHours.map((entry) => entry.date);
-        this.loaded = true;
-      } catch (e) {
-        this.showError = true;
-        console.error(e);
+          this.get3EveryMinute();
       }
     },
   },
@@ -174,13 +174,19 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-// .chart-container {
-//   display: flex;
-//   flex-direction: column;
-//   align-items: center;
-//   margin-top: 30px;
-//   padding: 0 5px;
-// }
+.chart-container {
+  // display: flex;
+  // flex-direction: column;
+  // align-items: center;
+  // margin-top: 30px;
+  // padding: 0 5px;
+  height: 30vh;
+
+  > .line-chart {
+    position: relative;
+    height: 100%;
+  }
+}
 .button-group {
   display: flex;
   justify-content: space-around;
